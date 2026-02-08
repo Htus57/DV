@@ -1,0 +1,119 @@
+z<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Dịch Vụ | PersonalPro</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">Personal<span>Pro</span></a>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html#home" class="nav-link">Trang chủ</a></li>
+                    <li><a href="index.html#services" class="nav-link">Dịch vụ</a></li>
+                    <li><a href="index.html#about" class="nav-link">Về tôi</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Liên hệ</a></li>
+                    <li><a href="service-detail.html" class="nav-link active">Tất cả dịch vụ</a></li>
+                </ul>
+                
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Service Detail Section -->
+    <section class="detail-section">
+        <div class="container">
+            <div class="service-detail-page-header">
+                <h1>Tất Cả Dịch Vụ Cá Nhân</h1>
+                <p>Khám phá các dịch vụ chuyên nghiệp được thiết kế riêng cho nhu cầu và mục tiêu cá nhân của bạn.</p>
+            </div>
+            
+            <!-- Service Filter -->
+            <div class="service-filter">
+                <button class="filter-btn active" data-filter="all">Tất cả</button>
+                <button class="filter-btn" data-filter="app">App</button>
+                <button class="filter-btn" data-filter="appstore">Appstore</button>
+                <button class="filter-btn" data-filter="game">Game</button>
+                <button class="filter-btn" data-filter="source">Source</button>
+            </div>
+            
+            <!-- Service Detail Content -->
+            <div id="serviceDetailContainer">
+                <!-- Nội dung chi tiết dịch vụ sẽ được tải tại đây -->
+            </div>
+            
+            <!-- All Services -->
+            <section class="all-services-section">
+                <div class="section-header">
+                    <h2 class="section-title">Dịch Vụ Khác</h2>
+                    <p class="section-subtitle">Khám phá các dịch vụ khác có thể phù hợp với nhu cầu của bạn.</p>
+                </div>
+                
+                <div class="all-services-grid" id="allServicesContainer">
+                    <!-- Các dịch vụ khác sẽ được tải tại đây -->
+                </div>
+            </section>
+            
+            <div class="back-to-home">
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i> Quay lại trang chủ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html" class="logo">Personal<span>Pro</span></a>
+                    <p>Giúp bạn khám phá tiềm năng, đạt được mục tiêu và sống cuộc đời tốt đẹp nhất.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html#home">Trang chủ</a></li>
+                        <li><a href="index.html#services">Dịch vụ</a></li>
+                        <li><a href="index.html#about">Về tôi</a></li>
+                        <li><a href="index.html#contact">Liên hệ</a></li>
+                        <li><a href="service-detail.html">Tất cả dịch vụ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 PersonalPro. Tất cả các quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/services-data.js"></script>
+    <script src="js/service-detail.js"></script>
+</body>
+</html>

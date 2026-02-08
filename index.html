@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DV</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo"><span>DV</span></a>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="#home" class="nav-link active">Trang chủ</a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link">Dịch vụ</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Liên hệ</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="pill pill-ghost">Dịch vụ</span>
+                <h1 class="hero-title">Nâng tầm trải nghiệm</h1>
+                <p class="hero-subtitle">Hãy dành chút thời gian đọc đánh giá để bạn yên tâm hơn.</p>
+                <div class="hero-actions">
+                    <a href="#services" class="btn btn-primary">Khám phá dịch vụ</a>
+                    <a href="#contact" class="btn btn-secondary">Liên hệ nhanh</a>
+                    <a href="#reviews" class="btn btn-accent">Đánh giá</a>
+                </div>
+                <div class="hero-tags">
+                    <span class="pill">An toàn</span>
+                    <span class="pill">Tốc độ</span>
+                    <span class="pill">24/7 Support</span>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-card-top">
+                        <span class="pill pill-soft">Dịch vụ nổi bật</span>
+                        <span class="hero-price">Chỉ từ 3.000 KRW</span>
+                    </div>
+                    <p class="hero-card-text">Tối ưu xem video, tải ứng dụng và trải nghiệm MXH ổn định trên mọi thiết bị.</p>
+                    <div class="hero-meta">
+                        <!-- <div class="stat">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Tính năng</span>
+                        </div> -->
+                        <!-- <div class="stat">
+                            <span class="stat-number">Phút</span>
+                            <span class="stat-label">Hướng dẫn nhanh</span>
+                        </div> -->
+                        <div class="stat">
+                            <span class="stat-number">Multi</span>
+                            <span class="stat-label">Thiết bị</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="reviews-section" id="reviews">
+                <div class="section-header">
+                    <h2 class="section-title">Đánh Giá Khách Hàng</h2>
+                    <p class="section-subtitle">Chia sẻ trải nghiệm của bạn để giúp mọi người dễ dàng chọn dịch vụ phù hợp.</p>
+                </div>
+                <div class="reviews-grid">
+                    <div class="reviews-summary">
+                        <div class="average-score">
+                            <span class="average-value" id="averageRating">0.0</span>
+                            <div class="average-stars" id="averageStars"></div>
+                            <p class="average-count" id="reviewsCount">0 đánh giá</p>
+                        </div>
+                        <div class="rating-breakdown" id="ratingBreakdown">
+                            <div class="rating-row" data-rating="5">
+                                <span>5 sao</span>
+                                <div class="rating-bar"><span class="rating-fill"></span></div>
+                                <span class="rating-percent">0%</span>
+                            </div>
+                            <div class="rating-row" data-rating="4">
+                                <span>4 sao</span>
+                                <div class="rating-bar"><span class="rating-fill"></span></div>
+                                <span class="rating-percent">0%</span>
+                            </div>
+                            <div class="rating-row" data-rating="3">
+                                <span>3 sao</span>
+                                <div class="rating-bar"><span class="rating-fill"></span></div>
+                                <span class="rating-percent">0%</span>
+                            </div>
+                            <div class="rating-row" data-rating="2">
+                                <span>2 sao</span>
+                                <div class="rating-bar"><span class="rating-fill"></span></div>
+                                <span class="rating-percent">0%</span>
+                            </div>
+                            <div class="rating-row" data-rating="1">
+                                <span>1 sao</span>
+                                <div class="rating-bar"><span class="rating-fill"></span></div>
+                                <span class="rating-percent">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="reviews-form" id="reviewForm">
+                        <div class="form-group">
+                            <label for="reviewName">Biệt danh</label>
+                            <input type="text" id="reviewName" name="reviewName" placeholder="Nhập biệt danh" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewService">Dịch vụ</label>
+                            <select id="reviewService" name="reviewService" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewMessage">Đánh giá dịch vụ</label>
+                            <textarea id="reviewMessage" name="reviewMessage" placeholder="Chia sẻ cảm nhận của bạn" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Đánh giá sao</label>
+                            <div class="star-input">
+                                <input type="radio" id="star5" name="rating" value="5" checked>
+                                <label for="star5" aria-label="5 sao">★</label>
+                                <input type="radio" id="star4" name="rating" value="4">
+                                <label for="star4" aria-label="4 sao">★</label>
+                                <input type="radio" id="star3" name="rating" value="3">
+                                <label for="star3" aria-label="3 sao">★</label>
+                                <input type="radio" id="star2" name="rating" value="2">
+                                <label for="star2" aria-label="2 sao">★</label>
+                                <input type="radio" id="star1" name="rating" value="1">
+                                <label for="star1" aria-label="1 sao">★</label>
+                            </div>
+                        </div>
+                        <div class="form-submit">
+                            <button type="submit" class="btn btn-primary btn-block">Gửi đánh giá</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="reviews-list" id="reviewsList" data-limit="6"></div>
+                <div class="reviews-actions">
+                    <a href="reviews.html" class="btn btn-secondary" id="reviewsMoreButton">Xem thêm</a>
+                </div>
+            </section>
+            <section class="services-section" id="services">
+                <div class="section-header">
+                    <h2 class="section-title">Dịch Vụ</h2>
+                    <p class="section-subtitle">Chọn dịch vụ phù hợp với nhu cầu của bạn, thiết kế cho trải nghiệm MXH liền mạch.</p>
+                </div>
+                <div class="service-filter" id="servicesFilter">
+                    <button class="filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="filter-btn" data-filter="app">App</button>
+                    <button class="filter-btn" data-filter="appstore">Appstore</button>
+                    <button class="filter-btn" data-filter="game">Game</button>
+                    <button class="filter-btn" data-filter="source">Source</button>
+                </div>
+                <div class="services-grouped" id="servicesGrid"></div>
+            </section>
+        </div>
+    </main>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Liên Hệ Với Chúng Tôi</h2>
+                <p class="section-subtitle">Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ. Chúng tôi luôn sẵn sàng hỗ trợ.</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <!-- <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>coc799299@gmail.com</p>
+                        </div>
+                    </div> -->
+                    <div class="contact-item">
+                        <i class="fab fa-kickstarter-k"></i>
+                        <div>
+                            <h4>KakaoTalk</h4>
+                            <p>ID: lht_1307</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-facebook"></i>
+                        <div>
+                            <h4>Facebook</h4>
+                            <p><a href="https://www.facebook.com/kcudx7x3/" target="_blank">Hoàng Tú</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="serviceModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalServiceTitle"></h2>
+                <button class="modal-close" id="modalClose" aria-label="Đóng">&times;</button>
+            </div>
+            <div class="modal-content">
+                <p id="modalServiceDescription"></p>
+                <div class="service-features" id="modalServiceFeatures"></div>
+                <div class="service-features" id="modalServicePreparations"></div>
+                <div class="service-cta">
+                    <a href="#contact" class="btn btn-primary" id="modalCloseBtn">Liên hệ</a>
+                    <a href="#services" class="btn btn-secondary">Quay lại dịch vụ</a>
+                    <a href="#reviews" class="btn btn-accent">Đánh giá</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="#home" class="logo">Dịch Vụ</a>
+                    <p>Cung cấp giải pháp, uy tín và hiệu quả.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="#home">Trang chủ</a></li>
+                        <li><a href="#services">Dịch vụ</a></li>
+                        <li><a href="#contact">Liên hệ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Dịch Vụ MXH. Tất cả các dịch vụ được cung cấp tuyệt đối an toàn và bảo mật thông tin.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/services-data.js"></script>
+    <script src="js/reviews-data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -106,5 +106,25 @@ const services = [
         duration: "Linh hoạt",
         sessions: "Theo yêu cầu",
         tag: "app"
+    },
+     {
+        id: 7,
+        title: "Source Ngọc Rồng DIAMOND lậu",
+        subtitle: "",
+        price: "3.000₩",
+        description: "Source ngọc rồng lậu.",
+        features: [
+            "Download"
+        ],
+        preparations: [
+            "cung cấp toàn bộ source",
+            "Tặng source web",
+            "Có nhiều data user",
+            "server đã được hoạt động",
+            "Chỉ cần lấy source về và open"
+        ],
+        duration: "Linh hoạt",
+        sessions: "Theo yêu cầu",
+        tag: "appstore"
     }
 ];

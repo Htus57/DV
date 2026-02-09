@@ -1,4 +1,5 @@
-// DOM Elements
+// Bản quyền © 2026 Duck
+// Các phần tử DOM
 const servicesGrid = document.getElementById('servicesGrid');
 const servicesFilter = document.getElementById('servicesFilter');
 const hamburger = document.querySelector('.hamburger');
@@ -6,8 +7,11 @@ const navMenu = document.querySelector('.nav-menu');
 const contactForm = document.getElementById('contactForm');
 const navLinks = document.querySelectorAll('.nav-link');
 
-// Initialize services on page load
+// Khởi tạo dịch vụ khi tải trang
 document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.hash) {
+        history.replaceState(null, document.title, window.location.pathname + window.location.search);
+    }
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
@@ -18,7 +22,14 @@ document.addEventListener('DOMContentLoaded', function() {
     updateActiveNavLink();
 });
 
-// Render services to the page
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        history.replaceState(null, document.title, window.location.pathname + window.location.search);
+        window.scrollTo(0, 0);
+    }
+});
+
+// Render danh sách dịch vụ
 function renderServices(filter = 'all') {
     if (!servicesGrid) {
         return;
@@ -121,7 +132,7 @@ function renderServices(filter = 'all') {
     });
 }
 
-// Setup event listeners
+// Thiết lập các sự kiện
 function setupEventListeners() {
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function() {
@@ -165,6 +176,10 @@ function setupEventListeners() {
                 this.classList.add('active');
                 const filter = this.getAttribute('data-filter');
                 renderServices(filter);
+                const servicesSection = document.getElementById('services');
+                if (servicesSection) {
+                    servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             });
         });
     }
@@ -184,7 +199,7 @@ function setupEventListeners() {
     window.addEventListener('scroll', updateActiveNavLink);
 }
 
-// Update active navigation link based on scroll position
+// Cập nhật menu đang chọn theo vị trí cuộn
 function updateActiveNavLink() {
     const sections = document.querySelectorAll('section[id]');
     const scrollY = window.pageYOffset;

@@ -1,39 +1,40 @@
-// DOM Elements
+// Bản quyền © 2026 Duck
+// Các phần tử DOM
 const serviceDetailContainer = document.getElementById('serviceDetailContainer');
 const allServicesContainer = document.getElementById('allServicesContainer');
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 
-// Initialize page
+// Khởi tạo trang
 document.addEventListener('DOMContentLoaded', function() {
     loadServiceDetail();
     renderAllServices();
     setupEventListeners();
 });
 
-// Load service detail based on URL parameter
+// Tải chi tiết dịch vụ theo tham số URL
 function loadServiceDetail() {
-    // Get service ID from URL
+    // Lấy ID dịch vụ từ URL
     const urlParams = new URLSearchParams(window.location.search);
     const serviceId = urlParams.get('id');
     
-    // Find the service
+    // Tìm dịch vụ tương ứng
     let service;
     if (serviceId) {
         service = services.find(s => s.id == serviceId);
     }
     
-    // If service not found or no ID provided, show the first service
+    // Nếu không tìm thấy, hiển thị dịch vụ đầu tiên
     if (!service) {
         service = services[0];
     }
     
-    // Render service detail
+    // Render chi tiết dịch vụ
     renderServiceDetail(service);
 }
 
-// Render service detail
+// Render chi tiết dịch vụ
 function renderServiceDetail(service) {
     serviceDetailContainer.innerHTML = `
         <div class="service-detail-card">
@@ -69,13 +70,13 @@ function renderServiceDetail(service) {
     `;
 }
 
-// Render all services (for the "other services" section)
+// Render toàn bộ dịch vụ (phần dịch vụ khác)
 function renderAllServices(filter = 'all') {
     allServicesContainer.innerHTML = '';
     
     let filteredServices = services;
     
-    // Apply filter
+    // Áp dụng bộ lọc
     if (filter !== 'all') {
         filteredServices = services.filter(service => service.tag === filter);
     }
@@ -85,7 +86,7 @@ function renderAllServices(filter = 'all') {
         return;
     }
 
-    // Render services
+    // Render danh sách dịch vụ
     filteredServices.forEach(service => {
         const serviceCard = document.createElement('div');
         serviceCard.className = 'service-card';
@@ -117,14 +118,14 @@ function renderAllServices(filter = 'all') {
     });
 }
 
-// Setup event listeners
+// Thiết lập các sự kiện
 function setupEventListeners() {
-    // Mobile navigation toggle
+    // Bật/tắt menu mobile
     hamburger.addEventListener('click', function() {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
         
-        // Toggle hamburger animation
+        // Chuyển trạng thái icon hamburger
         const bars = document.querySelectorAll('.bar');
         if (navMenu.classList.contains('active')) {
             bars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
@@ -137,14 +138,14 @@ function setupEventListeners() {
         }
     });
     
-    // Close mobile menu when clicking a link
+    // Đóng menu mobile khi bấm link
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             if (navMenu.classList.contains('active')) {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
                 
-                // Reset hamburger animation
+                // Reset icon hamburger
                 const bars = document.querySelectorAll('.bar');
                 bars[0].style.transform = 'none';
                 bars[1].style.opacity = '1';
@@ -153,21 +154,25 @@ function setupEventListeners() {
         });
     });
     
-    // Filter buttons
+    // Các nút lọc
     const filterButtons = document.querySelectorAll('.filter-btn');
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Remove active class from all buttons
+            // Xóa trạng thái active trên tất cả nút
             filterButtons.forEach(btn => btn.classList.remove('active'));
             
-            // Add active class to clicked button
+            // Thêm trạng thái active cho nút vừa bấm
             this.classList.add('active');
             
-            // Get filter value
+            // Lấy giá trị lọc
             const filter = this.getAttribute('data-filter');
             
-            // Apply filter
+            // Áp dụng bộ lọc
             renderAllServices(filter);
+            const servicesSection = document.querySelector('.all-services-section');
+            if (servicesSection) {
+                servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
     });
 }

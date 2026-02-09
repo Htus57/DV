@@ -109,10 +109,10 @@ const services = [
     },
      {
         id: 7,
-        title: "Source Ngọc Rồng DIAMOND lậu",
+        title: "Ngọc Rồng DIAMOND lậu",
         subtitle: "",
-        price: "3.000₩",
-        description: "Source ngọc rồng lậu.",
+        price: "100.000₩",
+        description: "FULL Source ngọc rồng lậu.",
         features: [
             "Download"
         ],
@@ -121,7 +121,9 @@ const services = [
             "Tặng source web",
             "Có nhiều data user",
             "server đã được hoạt động",
-            "Chỉ cần lấy source về và open"
+            "Chỉ cần lấy source và open",
+            "Giống server teamobi",
+            "Source sạch 100%"
         ],
         duration: "Linh hoạt",
         sessions: "Theo yêu cầu",

@@ -6,6 +6,8 @@ const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const contactForm = document.getElementById('contactForm');
 const navLinks = document.querySelectorAll('.nav-link');
+const SUPABASE_URL = 'https://lxlcpiixeyipcytfdkjn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4bGNwaWl4ZXlpcGN5dGZka2puIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NzM5OTcsImV4cCI6MjA4NjE0OTk5N30.yQFZWHRi9tz1FVON80BLFoztxngy59aEQDi_TcwauHg';
 
 // Khởi tạo dịch vụ khi tải trang
 document.addEventListener('DOMContentLoaded', function() {
@@ -238,9 +240,15 @@ function setupReviews() {
         moreButton.style.display = 'none';
     }
 
-    let storedReviews = getStoredReviews();
+    let storedReviews = [];
     populateServiceOptions(reviewServiceSelect);
-    renderReviews(storedReviews, reviewList, averageRating, averageStars, reviewsCount, ratingRows);
+    loadReviewsFromSupabase(reviewList, averageRating, averageStars, reviewsCount, ratingRows)
+        .then(reviews => {
+            storedReviews = reviews;
+        })
+        .catch(() => {
+            storedReviews = [];
+        });
 
     reviewForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -255,20 +263,22 @@ function setupReviews() {
         }
 
         const newReview = {
-            id: Date.now(),
             name,
             message,
             rating: Number(ratingInput.value),
-            service: serviceValue,
-            date: new Date().toISOString()
+            service: serviceValue
         };
 
-        const updatedReviews = [newReview, ...storedReviews];
-        saveStoredReviews(updatedReviews);
-        storedReviews = updatedReviews;
-        renderReviews(updatedReviews, reviewList, averageRating, averageStars, reviewsCount, ratingRows);
-        reviewForm.reset();
-        reviewForm.querySelector('#star5').checked = true;
+        createReviewInSupabase(newReview)
+            .then(createdReview => {
+                storedReviews = [createdReview, ...storedReviews];
+                renderReviews(storedReviews, reviewList, averageRating, averageStars, reviewsCount, ratingRows);
+                reviewForm.reset();
+                reviewForm.querySelector('#star5').checked = true;
+            })
+            .catch(() => {
+                alert('Không thể gửi đánh giá. Vui lòng thử lại.');
+            });
     });
 }
 
@@ -285,65 +295,41 @@ function populateServiceOptions(selectElement) {
     });
 }
 
-function mergeReviews(seed, stored) {
-    if (!Array.isArray(seed) || !seed.length) {
-        return stored;
-    }
-
-    const existingIds = new Set(stored.map(review => review.id));
-    const merged = [...stored];
-    seed.forEach(review => {
-        if (!existingIds.has(review.id)) {
-            merged.push(review);
+async function loadReviewsFromSupabase(reviewList, averageRating, averageStars, reviewsCount, ratingRows) {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews?select=*&order=created_at.desc`, {
+        headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
         }
     });
 
-    return merged;
+    if (!response.ok) {
+        throw new Error('Supabase fetch failed');
+    }
+
+    const reviews = await response.json();
+    renderReviews(reviews, reviewList, averageRating, averageStars, reviewsCount, ratingRows);
+    return reviews;
 }
 
-function getStoredReviews() {
-    const seed = Array.isArray(reviewSeed) ? reviewSeed : [];
-    const resetKey = typeof reviewResetKey === 'string' ? reviewResetKey : 'reviewReset_v1';
-    const shouldClear = typeof clearReviewsOnLoad === 'boolean' ? clearReviewsOnLoad : false;
+async function createReviewInSupabase(review) {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews`, {
+        method: 'POST',
+        headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            Prefer: 'return=representation'
+        },
+        body: JSON.stringify(review)
+    });
 
-    if (shouldClear && !localStorage.getItem(resetKey)) {
-        localStorage.removeItem('serviceReviews');
-        localStorage.setItem(resetKey, 'true');
+    if (!response.ok) {
+        throw new Error('Supabase insert failed');
     }
 
-    const stored = localStorage.getItem('serviceReviews');
-    if (!stored) {
-        if (seed.length) {
-            saveStoredReviews(seed);
-        }
-        return seed;
-    }
-
-    try {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-            const merged = mergeReviews(seed, parsed);
-            if (merged.length !== parsed.length) {
-                saveStoredReviews(merged);
-            }
-            return merged;
-        }
-    } catch (error) {
-        if (seed.length) {
-            saveStoredReviews(seed);
-        }
-        return seed;
-    }
-
-    if (seed.length) {
-        saveStoredReviews(seed);
-    }
-
-    return seed;
-}
-
-function saveStoredReviews(reviews) {
-    localStorage.setItem('serviceReviews', JSON.stringify(reviews));
+    const created = await response.json();
+    return created[0];
 }
 
 function renderReviews(reviews, reviewList, averageRating, averageStars, reviewsCount, ratingRows) {

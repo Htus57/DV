@@ -3,10 +3,10 @@
 const services = [
     {
         id: 1,
-        title: "YouTube Premium",
+        title: "YouTube Premium(Fake)",
         subtitle: "Xem video youtube không bị chặn và có chất lượng tốt hơn.",
         price: "12.000₩",
-        description: "Sử dụng YoutubeVPN để xem video youtube không bị quảng cáo, phát video dưới nền, pop-up video...",
+        description: "Sử dụng Youtube(Fake) để xem video youtube không bị quảng cáo, phát video dưới nền, pop-up video...",
         features: [
             "Vĩnh viễn",
             "Chặn quảng cáo 100%",
@@ -125,6 +125,6 @@ const services = [
         ],
         duration: "Linh hoạt",
         sessions: "Theo yêu cầu",
-        tag: "appstore"
+        tag: "source"
     }
 ];

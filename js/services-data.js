@@ -30,14 +30,15 @@ const services = [
         id: 2,
         title: "Thuê icloud",
         subtitle: "",
-        price: "3.000₩",
+        price: "0.000₩",
         description: "Sử dụng để download các app cần thiết.",
         features: [
             "Download"
         ],
         preparations: [
-            "Khi thuê các bạn sẽ được cung cấp 1 icloud để đăng nhập và tải app SHADOWROCKET",
-            "Hoặc có thể tự mua app trên APPSTORE"
+            // "Khi thuê các bạn sẽ được cung cấp 1 icloud để đăng nhập và tải app SHADOWROCKET",
+            // "Hoặc có thể tự mua app trên APPSTORE"
+            "Hiện tại vẫn chưa có Icloud, Hãy mua trên appstore"
         ],
         duration: "Linh hoạt",
         sessions: "Theo yêu cầu",

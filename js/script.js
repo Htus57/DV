@@ -6,8 +6,6 @@ const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const contactForm = document.getElementById('contactForm');
 const navLinks = document.querySelectorAll('.nav-link');
-const SUPABASE_URL = 'https://lxlcpiixeyipcytfdkjn.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4bGNwaWl4ZXlpcGN5dGZka2puIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NzM5OTcsImV4cCI6MjA4NjE0OTk5N30.yQFZWHRi9tz1FVON80BLFoztxngy59aEQDi_TcwauHg';
 
 // Khởi tạo dịch vụ khi tải trang
 document.addEventListener('DOMContentLoaded', function() {
@@ -20,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.scrollTo(0, 0);
     renderServices();
     setupEventListeners();
-    setupReviews();
     updateActiveNavLink();
 });
 
@@ -205,13 +202,13 @@ function setupEventListeners() {
 function updateActiveNavLink() {
     const sections = document.querySelectorAll('section[id]');
     const scrollY = window.pageYOffset;
-    
+
     sections.forEach(section => {
         const sectionHeight = section.offsetHeight;
         const sectionTop = section.offsetTop - 100;
         const sectionId = section.getAttribute('id');
         const correspondingLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-        
+
         if (correspondingLink) {
             if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
                 correspondingLink.classList.add('active');
@@ -220,202 +217,4 @@ function updateActiveNavLink() {
             }
         }
     });
-}
-
-function setupReviews() {
-    const reviewForm = document.getElementById('reviewForm');
-    const reviewList = document.getElementById('reviewsList');
-    const reviewServiceSelect = document.getElementById('reviewService');
-    const averageRating = document.getElementById('averageRating');
-    const averageStars = document.getElementById('averageStars');
-    const reviewsCount = document.getElementById('reviewsCount');
-    const ratingRows = document.querySelectorAll('.rating-row');
-    const moreButton = document.getElementById('reviewsMoreButton');
-
-    if (!reviewForm || !reviewList || !reviewServiceSelect) {
-        return;
-    }
-
-    if (moreButton && reviewList.dataset.limit) {
-        moreButton.style.display = 'none';
-    }
-
-    let storedReviews = [];
-    populateServiceOptions(reviewServiceSelect);
-    loadReviewsFromSupabase(reviewList, averageRating, averageStars, reviewsCount, ratingRows)
-        .then(reviews => {
-            storedReviews = reviews;
-        })
-        .catch(() => {
-            storedReviews = [];
-        });
-
-    reviewForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const name = reviewForm.querySelector('#reviewName').value.trim();
-        const message = reviewForm.querySelector('#reviewMessage').value.trim();
-        const ratingInput = reviewForm.querySelector('input[name="rating"]:checked');
-        const serviceValue = reviewServiceSelect.value;
-
-        if (!name || !message || !ratingInput || !serviceValue) {
-            return;
-        }
-
-        const newReview = {
-            name,
-            message,
-            rating: Number(ratingInput.value),
-            service: serviceValue
-        };
-
-        createReviewInSupabase(newReview)
-            .then(createdReview => {
-                storedReviews = [createdReview, ...storedReviews];
-                renderReviews(storedReviews, reviewList, averageRating, averageStars, reviewsCount, ratingRows);
-                reviewForm.reset();
-                reviewForm.querySelector('#star5').checked = true;
-            })
-            .catch(() => {
-                alert('Không thể gửi đánh giá. Vui lòng thử lại.');
-            });
-    });
-}
-
-function populateServiceOptions(selectElement) {
-    selectElement.innerHTML = '<option value="">Chọn dịch vụ</option>';
-    const options = Array.isArray(reviewServices) && reviewServices.length
-        ? reviewServices
-        : Array.from(new Set(services.map(service => service.title)));
-    options.forEach(title => {
-        const option = document.createElement('option');
-        option.value = title;
-        option.textContent = title;
-        selectElement.appendChild(option);
-    });
-}
-
-async function loadReviewsFromSupabase(reviewList, averageRating, averageStars, reviewsCount, ratingRows) {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews?select=*&order=created_at.desc`, {
-        headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
-        }
-    });
-
-    if (!response.ok) {
-        throw new Error('Supabase fetch failed');
-    }
-
-    const reviews = await response.json();
-    renderReviews(reviews, reviewList, averageRating, averageStars, reviewsCount, ratingRows);
-    return reviews;
-}
-
-async function createReviewInSupabase(review) {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews`, {
-        method: 'POST',
-        headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-            'Content-Type': 'application/json',
-            Prefer: 'return=representation'
-        },
-        body: JSON.stringify(review)
-    });
-
-    if (!response.ok) {
-        throw new Error('Supabase insert failed');
-    }
-
-    const created = await response.json();
-    return created[0];
-}
-
-function renderReviews(reviews, reviewList, averageRating, averageStars, reviewsCount, ratingRows) {
-    if (!reviewList || !averageRating || !averageStars || !reviewsCount) {
-        return;
-    }
-
-    reviewList.innerHTML = '';
-    if (!reviews.length) {
-        reviewList.innerHTML = '<div class="review-empty">Chưa có đánh giá</div>';
-        averageRating.textContent = '0.0';
-        averageStars.innerHTML = renderStars(0);
-        reviewsCount.textContent = '0 đánh giá';
-        updateRatingBreakdown(ratingRows, []);
-        toggleReviewsMoreButton(reviewList, 0);
-        return;
-    }
-
-    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-    const avg = totalRating / reviews.length;
-    averageRating.textContent = avg.toFixed(1);
-    averageStars.innerHTML = renderStars(avg);
-    reviewsCount.textContent = `${reviews.length} đánh giá`;
-    updateRatingBreakdown(ratingRows, reviews);
-
-    const limit = Number(reviewList.dataset.limit) || 0;
-    const displayReviews = limit > 0 ? reviews.slice(0, limit) : reviews;
-    toggleReviewsMoreButton(reviewList, reviews.length);
-
-    displayReviews.forEach(review => {
-        const reviewCard = document.createElement('div');
-        reviewCard.className = 'review-card';
-        reviewCard.innerHTML = `
-            <div class="review-header">
-                <div>
-                    <div class="review-name">${review.name}</div>
-                    <div class="review-service">${review.service}</div>
-                </div>
-                <div class="review-stars">${renderStars(review.rating)}</div>
-            </div>
-            <p class="review-message">${review.message}</p>
-        `;
-        reviewList.appendChild(reviewCard);
-    });
-}
-
-function updateRatingBreakdown(ratingRows, reviews) {
-    if (!ratingRows) {
-        return;
-    }
-
-    const total = reviews.length;
-    ratingRows.forEach(row => {
-        const ratingValue = Number(row.getAttribute('data-rating'));
-        const count = reviews.filter(review => review.rating === ratingValue).length;
-        const percent = total ? Math.round((count / total) * 100) : 0;
-        const fill = row.querySelector('.rating-fill');
-        const percentLabel = row.querySelector('.rating-percent');
-        if (fill) {
-            fill.style.width = `${percent}%`;
-        }
-        if (percentLabel) {
-            percentLabel.textContent = `${percent}%`;
-        }
-    });
-}
-
-function toggleReviewsMoreButton(reviewList, totalReviews) {
-    const moreButton = document.getElementById('reviewsMoreButton');
-    if (!moreButton || !reviewList) {
-        return;
-    }
-
-    const limit = Number(reviewList.dataset.limit) || 0;
-    if (limit > 0 && totalReviews > limit) {
-        moreButton.style.display = 'inline-flex';
-    } else {
-        moreButton.style.display = 'none';
-    }
-}
-
-function renderStars(rating) {
-    const rounded = Math.round(rating);
-    let stars = '';
-    for (let i = 1; i <= 5; i += 1) {
-        stars += `<span class="${i <= rounded ? '' : 'star-muted'}">★</span>`;
-    }
-    return stars;
 }

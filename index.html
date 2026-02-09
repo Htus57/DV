@@ -20,7 +20,6 @@
                 <ul class="nav-menu" id="navMenu">
                     <li class="nav-item"><a href="#home" class="nav-link active">Trang chủ</a></li>
                     <li class="nav-item"><a href="#services" class="nav-link">Dịch vụ</a></li>
-                    <li class="nav-item"><a href="#reviews" class="nav-link">Đánh giá</a></li>
                     <li class="nav-item"><a href="#contact" class="nav-link">Liên hệ</a></li>
                 </ul>
                 <div class="hamburger" id="hamburger">
@@ -38,11 +37,10 @@
             <div class="hero-content">
                 <span class="pill pill-ghost">Dịch vụ</span>
                 <h1 class="hero-title">Nâng tầm trải nghiệm</h1>
-                <p class="hero-subtitle">Hãy dành chút thời gian đọc đánh giá để bạn yên tâm hơn.</p>
+                <p class="hero-subtitle">Giải pháp nhanh gọn để bạn chọn dịch vụ phù hợp.</p>
                 <div class="hero-actions">
                     <a href="#services" class="btn btn-primary">Khám phá dịch vụ</a>
                     <a href="#contact" class="btn btn-secondary">Liên hệ nhanh</a>
-                    <a href="#reviews" class="btn btn-accent">Đánh giá</a>
                 </div>
                 <div class="hero-tags">
                     <span class="pill">An toàn</span>
@@ -79,85 +77,6 @@
     <!-- Nội dung chính -->
     <main class="main-content">
         <div class="container">
-            <!-- Khu vực đánh giá -->
-            <section class="reviews-section" id="reviews">
-                <div class="section-header">
-                    <h2 class="section-title">Đánh Giá Khách Hàng</h2>
-                    <p class="section-subtitle">Chia sẻ trải nghiệm của bạn để giúp mọi người dễ dàng chọn dịch vụ phù hợp.</p>
-                </div>
-                <div class="reviews-grid">
-                    <div class="reviews-summary">
-                        <div class="average-score">
-                            <span class="average-value" id="averageRating">0.0</span>
-                            <div class="average-stars" id="averageStars"></div>
-                            <p class="average-count" id="reviewsCount">0 đánh giá</p>
-                        </div>
-                        <div class="rating-breakdown" id="ratingBreakdown">
-                            <div class="rating-row" data-rating="5">
-                                <span>5 sao</span>
-                                <div class="rating-bar"><span class="rating-fill"></span></div>
-                                <span class="rating-percent">0%</span>
-                            </div>
-                            <div class="rating-row" data-rating="4">
-                                <span>4 sao</span>
-                                <div class="rating-bar"><span class="rating-fill"></span></div>
-                                <span class="rating-percent">0%</span>
-                            </div>
-                            <div class="rating-row" data-rating="3">
-                                <span>3 sao</span>
-                                <div class="rating-bar"><span class="rating-fill"></span></div>
-                                <span class="rating-percent">0%</span>
-                            </div>
-                            <div class="rating-row" data-rating="2">
-                                <span>2 sao</span>
-                                <div class="rating-bar"><span class="rating-fill"></span></div>
-                                <span class="rating-percent">0%</span>
-                            </div>
-                            <div class="rating-row" data-rating="1">
-                                <span>1 sao</span>
-                                <div class="rating-bar"><span class="rating-fill"></span></div>
-                                <span class="rating-percent">0%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <form class="reviews-form" id="reviewForm">
-                        <div class="form-group">
-                            <label for="reviewName">Biệt danh</label>
-                            <input type="text" id="reviewName" name="reviewName" placeholder="Nhập biệt danh" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="reviewService">Dịch vụ</label>
-                            <select id="reviewService" name="reviewService" required></select>
-                        </div>
-                        <div class="form-group">
-                            <label for="reviewMessage">Đánh giá dịch vụ</label>
-                            <textarea id="reviewMessage" name="reviewMessage" placeholder="Chia sẻ cảm nhận của bạn" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Đánh giá sao</label>
-                            <div class="star-input">
-                                <input type="radio" id="star5" name="rating" value="5" checked>
-                                <label for="star5" aria-label="5 sao">★</label>
-                                <input type="radio" id="star4" name="rating" value="4">
-                                <label for="star4" aria-label="4 sao">★</label>
-                                <input type="radio" id="star3" name="rating" value="3">
-                                <label for="star3" aria-label="3 sao">★</label>
-                                <input type="radio" id="star2" name="rating" value="2">
-                                <label for="star2" aria-label="2 sao">★</label>
-                                <input type="radio" id="star1" name="rating" value="1">
-                                <label for="star1" aria-label="1 sao">★</label>
-                            </div>
-                        </div>
-                        <div class="form-submit">
-                            <button type="submit" class="btn btn-primary btn-block">Gửi đánh giá</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="reviews-list" id="reviewsList" data-limit="6"></div>
-                <div class="reviews-actions">
-                    <a href="reviews.html" class="btn btn-secondary" id="reviewsMoreButton">Xem thêm</a>
-                </div>
-            </section>
             <!-- Khu vực dịch vụ -->
             <section class="services-section" id="services">
                 <div class="section-header">
@@ -207,9 +126,6 @@
                             <p><a href="https://www.facebook.com/kcudx7x3/" target="_blank">Ấn đây nè</a></p>
                         </div>
                     </div>
-                    <div class="contact-actions">
-                        <a href="#reviews" class="btn btn-accent">Đánh giá</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -247,7 +163,6 @@
                     <ul>
                         <li><a href="#home">Trang chủ</a></li>
                         <li><a href="#services">Dịch vụ</a></li>
-                        <li><a href="#reviews">Đánh giá</a></li>
                         <li><a href="#contact">Liên hệ</a></li>
                     </ul>
                 </div>
@@ -260,7 +175,6 @@
 
     <!-- Script chính -->
     <script src="js/services-data.js"></script>
-    <script src="js/reviews-data.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

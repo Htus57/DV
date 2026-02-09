@@ -114,7 +114,7 @@ const services = [
         price: "100.000₩",
         description: "FULL Source ngọc rồng lậu.",
         features: [
-            "Download"
+            "Lấy source + open + pr = ∞₩"
         ],
         preparations: [
             "cung cấp toàn bộ source",

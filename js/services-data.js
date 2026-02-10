@@ -5,9 +5,10 @@ const services = [
         id: 1,
         title: "YouTube Premium(Fake)",
         subtitle: "Xem video youtube không bị chặn và có chất lượng tốt hơn.",
-        price: "12.000₩",
+        price: "15.000₩",
         description: "Sử dụng Youtube(Fake) để xem video youtube không bị quảng cáo, phát video dưới nền, pop-up video...",
         features: [
+            "File độc quyền",
             "Vĩnh viễn",
             "Chặn quảng cáo 100%",
             "HƯỚNG DẪN CHI TIẾT , NẾU TRONG QUÁ TRÌNH LÀM MÀ FILE BỊ FIX or LỖI SẼ HOÀN TIỀN 100%"
@@ -112,7 +113,7 @@ const services = [
         id: 7,
         title: "Ngọc Rồng DIAMOND lậu",
         subtitle: "",
-        price: "100.000₩",
+        price: "150.000₩",
         description: "FULL Source ngọc rồng lậu.",
         features: [
             "Lấy source + open + pr = ∞₩"
